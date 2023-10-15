@@ -38,5 +38,16 @@ public class Animacao : MonoBehaviour
 
             isInteracted = true;
         }
+
+        else if (isInteracted)
+        {
+            // gameObject.SetActive(false);
+            objeto.Play(closeAnimationName, 0, 0.0f);
+
+            var puzzleManager = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>();
+            // puzzleManager.ValidatePuzzle();
+
+            isInteracted = false;
+        }
     }
 }

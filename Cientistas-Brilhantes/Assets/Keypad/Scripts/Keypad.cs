@@ -8,13 +8,11 @@ namespace NavKeypad {
 public class Keypad : MonoBehaviour
 {
 
-    [SerializeField] private Animator myDoor = null;
+    [SerializeField] private Animator objeto = null;
 
-    //[SerializeField] private bool openTrigger = false;
 
-    [SerializeField] private string openAnimationName; // = "Abrir Porta 2"; // Nome da animação de abertura
+    [SerializeField] private string openAnimationName;
     [Header("Events")]
-
     [SerializeField] private UnityEvent onAccessGranted;
     [SerializeField] private UnityEvent onAccessDenied;
     [Header("Combination Code (9 Numbers Max)")]
@@ -132,9 +130,8 @@ public class Keypad : MonoBehaviour
         panelMesh.material.SetVector("_EmissionColor", screenGrantedColor * screenIntensity);
         audioSource.PlayOneShot(accessGrantedSfx);
 
-        myDoor.Play(openAnimationName, 0, 0.0f);
-        //gameObject.SetActive(false);
-    }
+        objeto.Play(openAnimationName, 0, 0.0f);
+        }
 
 }
 }
