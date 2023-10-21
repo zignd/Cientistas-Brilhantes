@@ -31,7 +31,7 @@ public class PuzzleManager : MonoBehaviour
         {
             // Inverte a visibilidade do VictoryCanvas ao pressionar "E"
             victoryCanvasVisible = !victoryCanvasVisible;
-           // VictoryCanvas.SetActive(victoryCanvasVisible);
+            VictoryCanvas.SetActive(victoryCanvasVisible);
         }
     }
 
