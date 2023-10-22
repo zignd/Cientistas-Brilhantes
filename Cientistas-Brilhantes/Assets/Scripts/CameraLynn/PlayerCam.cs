@@ -1,19 +1,36 @@
+using AHRS;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PlayerCam : MonoBehaviour
 {
-    public float sensX;
-    public float sensY;
+    public PuzzleManager PuzzleManager;
 
-    public Transform orientation;
+    public float SensX = 200;
+    public float SensY = 200;
 
-    float xRotation;
-    float yRotation;
+    public Transform Orientation;
 
-    public JoyCOMSocketBridgeClient joycomsocket;
+    public float mouseX;
+    public float mouseY;
+
+    public float XRotation;
+    public float YRotation;
+
+    public JoyCOMBridge BridgeClient;
+
+    public float SamplePeriod = 0.05f;
+    public float Beta = 1f;
+    public float t = 0.1f;
+    
+    public Quaternion QuaternionReadOnly;
+    public Vector3 QuarternionToEulerReadOnly;
+    public float[] MadgwickInternalQuaternionReadOnly;
+
+    private MadgwickAHRS madgwickAHRS;
 
     private void Start()
     {
@@ -23,46 +40,66 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+        if (PuzzleManager.Mode == Mode.MouseAndKeyboard)
+        {
+            UpdateRotationWithMouseData();
+        }
+        else
+        {
+            if (madgwickAHRS == null)
+            {
+                madgwickAHRS = new MadgwickAHRS(SamplePeriod, Beta);
+            }
 
-        yRotation += mouseX;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
-
-        //if (joycomsocket.ReceivedPayload != null)
-        //    UpdateMPU6050Data(joycomsocket.ReceivedPayload.MPU6050);
+            if (BridgeClient.ReceivedPayload != null)
+            {
+                UpdateRotationWithMPU6050Data(BridgeClient.ReceivedPayload.MPU6050);
+            }
+        }
     }
 
-    // Sensibilidade da rotação. Estes valores determinam quão rápido a câmera rotaciona em relação aos dados do MPU6050.
-    public float gyroSensitivity = 1.0f;
-    public float accelSensitivity = 1.0f;
-
-    public void UpdateMPU6050Data(MPU6050Data data)
+    public void UpdateRotationWithMouseData()
     {
-        // Usamos os dados do giroscópio para rotação
-        float rotationX = data.GyroX * gyroSensitivity;
-        float rotationY = data.GyroY * gyroSensitivity;
-        float rotationZ = data.GyroZ * gyroSensitivity;
+        mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * SensX;
+        mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * SensY;
 
-        // Rotação aplicada à câmera
-        transform.Rotate(Vector3.up * rotationX * Time.deltaTime);
-        transform.Rotate(Vector3.right * -rotationY * Time.deltaTime); // Invertido para a rotação no eixo Y corresponder à inclinação vertical.
-                                                                       // Para rotação no eixo Z (roll), poderia ser algo assim:
-                                                                       // transform.Rotate(Vector3.forward * rotationZ * Time.deltaTime);
+        YRotation += mouseX;
 
-        // Os dados do acelerômetro podem ser usados, por exemplo, para mover a câmera, 
-        // embora seja menos comum em muitas aplicações. Um uso possível seria determinar 
-        // se o dispositivo está virado para cima ou para baixo (por exemplo, usando AccelZ).
+        XRotation -= mouseY;
+        XRotation = Mathf.Clamp(XRotation, -90f, 90f);
 
-        // Mas, se quiser usar a aceleração para mover a câmera:
-        //float moveX = data.AccelX * accelSensitivity;
-        //float moveY = data.AccelY * accelSensitivity;
-        //float moveZ = data.AccelZ * accelSensitivity;
-        //transform.Translate(new Vector3(moveX, moveY, moveZ) * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(XRotation, YRotation, 0);
+        Orientation.rotation = Quaternion.Euler(0, YRotation, 0);
+    }
+
+    public void UpdateRotationWithMPU6050Data(MPU6050Data data)
+    {
+        if (BridgeClient.ReceivedPayload.Button1)
+        {
+            return;
+        }
+
+        madgwickAHRS.SamplePeriod = SamplePeriod;
+        madgwickAHRS.Beta = Beta;
+
+        madgwickAHRS.Update(data.GyroX, data.GyroY, data.GyroZ, data.AccelX, data.AccelY, data.AccelZ);
+
+        var madgwickQuaternion = new Quaternion(
+            madgwickAHRS.Quaternion[1],
+            madgwickAHRS.Quaternion[0],
+            madgwickAHRS.Quaternion[2],
+            madgwickAHRS.Quaternion[3]
+        );
+
+        MadgwickInternalQuaternionReadOnly = madgwickAHRS.Quaternion;
+        QuaternionReadOnly = madgwickQuaternion;
+        QuarternionToEulerReadOnly = madgwickQuaternion.eulerAngles;
+
+        Quaternion orientationQuaternion = Orientation.rotation;
+
+        var slerpedResultQuaternion = Quaternion.Slerp(orientationQuaternion, madgwickQuaternion, t);
+
+        Orientation.rotation = Quaternion.Euler(slerpedResultQuaternion.eulerAngles.x, slerpedResultQuaternion.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Euler(slerpedResultQuaternion.eulerAngles.x, slerpedResultQuaternion.eulerAngles.y, 0);
     }
 }
