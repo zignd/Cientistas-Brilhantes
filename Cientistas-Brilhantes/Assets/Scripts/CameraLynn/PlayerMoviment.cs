@@ -5,6 +5,11 @@ using UnityEngine.UIElements;
 
 public class PlayerMoviment : MonoBehaviour
 {
+    public PuzzleManager PuzzleManager;
+
+    public JoyCOMBridge joycomsocket;
+
+    public float ControllerRotationSensitivity = 100f;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -16,7 +21,7 @@ public class PlayerMoviment : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
-    public Transform orientation;
+    public Transform Orientation;
 
     float horizontalInput;
     float verticalInput;
@@ -24,20 +29,38 @@ public class PlayerMoviment : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-    // Start is called before the first frame update
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-        MyInput();
 
-        SpeedControl();
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
+
+        if (PuzzleManager.Mode == Mode.MouseAndKeyboard)
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
+        }
+        else
+        {
+            Orientation.Rotate(Vector3.up * joycomsocket.ReceivedPayload.Joystick.X * Time.deltaTime * ControllerRotationSensitivity);
+            verticalInput = joycomsocket.ReceivedPayload.Joystick.Y;
+        }
+
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
 
         if (grounded)
             rb.drag = groundDrag;
@@ -50,28 +73,10 @@ public class PlayerMoviment : MonoBehaviour
         MovePlayer();
     }
 
-
-    private void MyInput()
-    {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-    }
-
     private void MovePlayer()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = Orientation.forward * verticalInput + Orientation.right * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-    }
-
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if (flatVel.magnitude > moveSpeed)
-        {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-        }
     }
 }

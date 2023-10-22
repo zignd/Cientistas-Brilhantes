@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Mode { MouseAndKeyboard, Controller };
+
 public class PuzzleManager : MonoBehaviour
 {
     public GameObject PuzzlePieces;
     public GameObject VictoryCanvas;
-    public AudioSource victoryAudio; // Referência ao AudioSource
+    public AudioSource VictoryAudio; // Referência ao AudioSource
+    public Mode Mode;
 
     private bool victoryCanvasVisible = false; // Adicionamos uma variável para rastrear a visibilidade do VictoryCanvas
 
@@ -33,6 +36,16 @@ public class PuzzleManager : MonoBehaviour
             victoryCanvasVisible = !victoryCanvasVisible;
             VictoryCanvas.SetActive(victoryCanvasVisible);
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Mode = Mode.MouseAndKeyboard;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Mode = Mode.Controller;
+        }
     }
 
     public void ValidatePuzzle()
@@ -51,9 +64,9 @@ public class PuzzleManager : MonoBehaviour
             victoryCanvasVisible = true; // Define a visibilidade do VictoryCanvas como verdadeira
             VictoryCanvas.SetActive(true);
 
-            if (victoryAudio != null)
+            if (VictoryAudio != null)
             {
-                victoryAudio.Play(); // Toca o áudio da vitória
+                VictoryAudio.Play(); // Toca o áudio da vitória
             }
         }
     }

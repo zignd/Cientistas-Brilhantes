@@ -1,56 +1,26 @@
-// --- bluetooth ---
-
 #include "BluetoothSerial.h"
-
-// --- end bluetooth ---
-
-// --- MPU6050 ---
 
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 
-// --- end MPU6050 ---
-
-// --- joystick ---
-
-#define PIN_JOYSTICK_X 14
-#define PIN_JOYSTICK_Y 12
+#define PIN_JOYSTICK_X 12
+#define PIN_JOYSTICK_Y 14
 #define PIN_JOYSTICK_SEL 27
 
-// --- end joystick ---
-
-// --- buttons ---
-
-#define PIN_BUTTON_1 33
-#define PIN_BUTTON_2 32
-
-// --- end buttons ---
-
-// --- bluetooth ---
+#define PIN_BUTTON_1 32
+#define PIN_BUTTON_2 33
 
 BluetoothSerial SerialBT;
-
-// --- end bluetooth ---
-
-// --- MPU6050 ---
 
 Adafruit_MPU6050 mpu;
 sensors_event_t a, g, temp;
 
-// --- end MPU6050 ---
-
 void setup() {
   Serial.begin(115200);
 
-  // --- bluetooth ---
-
-  SerialBT.begin("ESP32Controller");
+  SerialBT.begin("Mulheres que Inspiram - Controle");
   Serial.println("Bluetooth Device is Ready to Pair");
-
-  // --- end bluetooth ---
-
-  // --- joystick ---
 
   pinMode(PIN_JOYSTICK_X, INPUT);
   pinMode(PIN_JOYSTICK_Y, INPUT);
@@ -58,26 +28,16 @@ void setup() {
 
   Serial.println("Finished joystick pinMode setup");
 
-  // --- end joystick ---
-
-  // --- buttons ---
-
   pinMode(PIN_BUTTON_1, INPUT_PULLUP);
   pinMode(PIN_BUTTON_2, INPUT_PULLUP);
 
   Serial.println("Finished buttons pinMode setup");
-
-  // --- end buttons ---
-
-  // --- MPU6050 ---
-
+  
   while (!mpu.begin()) {
     Serial.println("MPU6050 not connected!");
     delay(1000);
   }
   Serial.println("MPU6050 ready!");
-
-  // --- end MPU6050 ---
 }
 
 void loop() {
@@ -96,9 +56,9 @@ void loop() {
   mpu.getTemperatureSensor()->getEvent(&temp);
 
   // Create a buffer to hold the data
-  byte dataBuffer[35];
+  byte dataBuffer[39];
 
-  // Fill the buffer with data
+  // Fill the buffer with joystick data
   dataBuffer[0] = valueX & 0xFF;    // Low byte of valueX
   dataBuffer[1] = valueX >> 8;      // High byte of valueX
   dataBuffer[2] = valueY & 0xFF;    // Low byte of valueY
@@ -106,7 +66,7 @@ void loop() {
   dataBuffer[4] = valueSEL & 0xFF;  // Low byte of valueSEL
   dataBuffer[5] = valueSEL >> 8;    // High byte of valueSEL
 
-  // Fill the buffer with MPU6050 data (updated indices)
+  // Fill the buffer with MPU6050 data
   memcpy(&dataBuffer[6], &a.acceleration.x, sizeof(float));   // 4 bytes
   memcpy(&dataBuffer[10], &a.acceleration.y, sizeof(float));  // 4 bytes
   memcpy(&dataBuffer[14], &a.acceleration.z, sizeof(float));  // 4 bytes
@@ -117,16 +77,22 @@ void loop() {
 
   memcpy(&dataBuffer[30], &temp.temperature, sizeof(float));  // 4 bytes
 
+  // Fill the buffer with the two buttons data
+  dataBuffer[34] = valueBUTTON1 & 0xFF;    // Low byte of valueBUTTON1
+  dataBuffer[35] = valueBUTTON1 >> 8;      // High byte of valueBUTTON1
+  dataBuffer[36] = valueBUTTON2 & 0xFF;    // Low byte of valueBUTTON2
+  dataBuffer[37] = valueBUTTON2 >> 8;      // High byte of valueBUTTON2
+
   // Compute a simple checksum
   byte checksum = 0;
-  for (int i = 0; i < 34; i++) {
+  for (int i = 0; i < 38; i++) {
     checksum ^= dataBuffer[i];
   }
-  dataBuffer[34] = checksum;  // Store checksum in the last byte of the buffer
+  dataBuffer[38] = checksum;  // Store checksum in the last byte of the buffer
 
   // Send the buffer over BluetoothSerial
   size_t bytesWritten = SerialBT.write(dataBuffer, sizeof(dataBuffer));
-  
+
   // Check if the write was successful
   if (bytesWritten == sizeof(dataBuffer)) {
     Serial.println("Data sent successfully over BluetoothSerial.");
@@ -135,7 +101,7 @@ void loop() {
   }
 
   // Log the values being sent
-  Serial.print("Sent Joystick X: ");
+  Serial.print(" Sent Joystick X: ");
   Serial.print(valueX);
   Serial.print(", Y: ");
   Serial.print(valueY);
