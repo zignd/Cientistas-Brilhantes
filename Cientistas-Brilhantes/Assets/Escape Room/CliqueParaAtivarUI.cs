@@ -7,6 +7,7 @@ public class CliqueParaAtivarUI : MonoBehaviour
 {
     public GameObject textoUI;
     public GameObject imagemUI;
+    public float maxDistance = 2f; // Defina a distância máxima para a interação.
 
     private bool uiAtivada = false;
 
@@ -18,21 +19,33 @@ public class CliqueParaAtivarUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && uiAtivada)
+        if (Input.GetKeyDown(KeyCode.Escape) && uiAtivada)
         {
-            textoUI.SetActive(false);
-            imagemUI.SetActive(false);
-            uiAtivada = false;
+            DesativarUI();
         }
+    }
+
+    private void DesativarUI()
+    {
+        textoUI.SetActive(false);
+        imagemUI.SetActive(false);
+        uiAtivada = false;
     }
 
     private void OnMouseDown()
     {
-        if (!uiAtivada)
+        float distanceToPlayer = Vector3.Distance(transform.position, Camera.main.transform.position);
+
+        if (!uiAtivada && distanceToPlayer <= maxDistance)
         {
-            textoUI.SetActive(true);
-            imagemUI.SetActive(true);
-            uiAtivada = true;
+            AtivarUI();
         }
+    }
+
+    private void AtivarUI()
+    {
+        textoUI.SetActive(true);
+        imagemUI.SetActive(true);
+        uiAtivada = true;
     }
 }

@@ -7,9 +7,10 @@ public class Animacao : MonoBehaviour
     [SerializeField] private Animator objeto = null;
     [SerializeField] private bool openTrigger = false;
 
+    [SerializeField] private string openAnimationName; // Nome da animação de abertura
+    [SerializeField] private string closeAnimationName; // Nome da animação de fechamento
 
-    [SerializeField] private string openAnimationName; // = "Abrir Porta 2"; // Nome da animação de abertura
-    [SerializeField] private string closeAnimationName; // = "Fechar Porta 2"; // Nome da animação de fechamento
+    public float maxDistance = 2f; // Defina a distância máxima para a interação.
 
     private bool isInteracted = false;
 
@@ -22,15 +23,15 @@ public class Animacao : MonoBehaviour
                 objeto.Play(openAnimationName, 0, 0.0f);
                 //gameObject.SetActive(false);
             }
-            
         }
     }
 
     private void OnMouseDown()
     {
-        if (!isInteracted)
+        float distanceToPlayer = Vector3.Distance(transform.position, Camera.main.transform.position);
+
+        if (!isInteracted && distanceToPlayer <= maxDistance)
         {
-            // gameObject.SetActive(false);
             objeto.Play(openAnimationName, 0, 0.0f);
 
             var puzzleManager = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>();
@@ -38,10 +39,8 @@ public class Animacao : MonoBehaviour
 
             isInteracted = true;
         }
-
         else if (isInteracted)
         {
-            // gameObject.SetActive(false);
             objeto.Play(closeAnimationName, 0, 0.0f);
 
             var puzzleManager = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>();

@@ -1868,6 +1868,7 @@ MonoBehaviour:
   openTrigger: 1
   openAnimationName: Abrir Porta Movel
   closeAnimationName: Fechar Porta Movel
+  maxDistance: 0.7
 --- !u!64 &84895858
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3457,6 +3458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1994825499}
   imagemUI: {fileID: 1683819929}
+  maxDistance: 0.5
 --- !u!65 &146246184
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4829,6 +4831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1485530799}
   imagemUI: {fileID: 896628816}
+  maxDistance: 0.5
 --- !u!1 &220387128
 GameObject:
   m_ObjectHideFlags: 0
@@ -5176,6 +5179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 84338085}
   imagemUI: {fileID: 876479131}
+  maxDistance: 0.5
 --- !u!65 &220730410
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6094,6 +6098,7 @@ MonoBehaviour:
   openTrigger: 0
   openAnimationName: Almofada
   closeAnimationName: Almofada1
+  maxDistance: 0.7
 --- !u!65 &250699541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6484,11 +6489,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9c7930564c62a1e4b860892d2c0c8d8b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.081
+      value: -4.0876
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9c7930564c62a1e4b860892d2c0c8d8b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.775
+      value: 0.7744
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9c7930564c62a1e4b860892d2c0c8d8b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8003,6 +8008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 423028884}
   imagemUI: {fileID: 1044921317}
+  maxDistance: 0.5
 --- !u!1001 &369028781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10237,6 +10243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 493788367}
   imagemUI: {fileID: 88276347}
+  maxDistance: 0.5
 --- !u!65 &472554767
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10846,6 +10853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1433346912}
   imagemUI: {fileID: 1975140030}
+  maxDistance: 0.5
 --- !u!65 &498512049
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11498,6 +11506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1414053262}
   imagemUI: {fileID: 2042488235}
+  maxDistance: 0.5
 --- !u!65 &534006482
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12252,6 +12261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1124524997}
   imagemUI: {fileID: 2120186899}
+  maxDistance: 0.5
 --- !u!65 &587148878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13679,6 +13689,7 @@ MonoBehaviour:
   openTrigger: 1
   openAnimationName: Abrir Porta Movel
   closeAnimationName: Fechar Porta Movel
+  maxDistance: 0.7
 --- !u!64 &661005051
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14994,6 +15005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 40851591}
   imagemUI: {fileID: 586274798}
+  maxDistance: 0.5
 --- !u!65 &764754860
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15814,6 +15826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 319235199}
   imagemUI: {fileID: 938260335}
+  maxDistance: 0.5
 --- !u!65 &814112972
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15869,7 +15882,7 @@ Transform:
   m_GameObject: {fileID: 825429852}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.19278182, y: -0.013103962, z: 0.01249969}
+  m_LocalPosition: {x: -0.19307277, y: -0.013103962, z: 0.01249975}
   m_LocalScale: {x: 0.38369617, y: 0.0446, z: 0.9152}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15962,6 +15975,7 @@ MonoBehaviour:
   openTrigger: 1
   openAnimationName: Abrir Bau
   closeAnimationName: Fechar Bau
+  maxDistance: 0.7
 --- !u!1 &828379835
 GameObject:
   m_ObjectHideFlags: 0
@@ -16407,6 +16421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1488115353}
   imagemUI: {fileID: 684179299}
+  maxDistance: 0.5
 --- !u!65 &851555240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16994,6 +17009,7 @@ MonoBehaviour:
   openTrigger: 1
   openAnimationName: Mover Caixa
   closeAnimationName: Mover Caixa 2
+  maxDistance: 0.7
 --- !u!1 &866884233
 GameObject:
   m_ObjectHideFlags: 0
@@ -17668,6 +17684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1489286232}
   imagemUI: {fileID: 2146426321}
+  maxDistance: 0.5
 --- !u!1 &925233365
 GameObject:
   m_ObjectHideFlags: 0
@@ -20466,6 +20483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 2082009059}
   imagemUI: {fileID: 1071609031}
+  maxDistance: 0.5
 --- !u!65 &1035455313
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21498,6 +21516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 254150027}
   imagemUI: {fileID: 1042536068}
+  maxDistance: 0.5
 --- !u!65 &1076370445
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23264,6 +23283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 254150027}
   imagemUI: {fileID: 602577758}
+  maxDistance: 0.5
 --- !u!65 &1193603261
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24484,6 +24504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1640765820}
   imagemUI: {fileID: 636614102}
+  maxDistance: 0.5
 --- !u!65 &1247939530
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26540,6 +26561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1793851371}
   imagemUI: {fileID: 529002688}
+  maxDistance: 0.5
 --- !u!65 &1375373294
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28165,6 +28187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 283807901}
   imagemUI: {fileID: 723639304}
+  maxDistance: 0.5
 --- !u!65 &1489218811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28534,6 +28557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 196395897}
   imagemUI: {fileID: 1908831422}
+  maxDistance: 0.5
 --- !u!65 &1512428003
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30288,6 +30312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1359676446}
   imagemUI: {fileID: 1858451495}
+  maxDistance: 0.5
 --- !u!65 &1625926944
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30650,6 +30675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1124524997}
   imagemUI: {fileID: 2120186899}
+  maxDistance: 0.5
 --- !u!65 &1646296368
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30881,6 +30907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 212869510}
   imagemUI: {fileID: 1208817051}
+  maxDistance: 0.5
 --- !u!65 &1652814908
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31158,6 +31185,7 @@ MonoBehaviour:
   openTrigger: 1
   openAnimationName: Abrir Gaveta
   closeAnimationName: Fechar Gaveta
+  maxDistance: 0.7
 --- !u!65 &1659211495
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32245,6 +32273,7 @@ MonoBehaviour:
   openTrigger: 1
   openAnimationName: Abrir Gaveta 2
   closeAnimationName: Fechar Gaveta 2
+  maxDistance: 0.7
 --- !u!1001 &1720397647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32424,6 +32453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1488115353}
   imagemUI: {fileID: 684179299}
+  maxDistance: 0.5
 --- !u!65 &1723162557
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32834,6 +32864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1418279790}
   imagemUI: {fileID: 284073291}
+  maxDistance: 0.5
 --- !u!65 &1737586835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33011,6 +33042,7 @@ MonoBehaviour:
   openTrigger: 1
   openAnimationName: Abrir Porta Movel 2
   closeAnimationName: Fechar Porta Movel 2
+  maxDistance: 0.7
 --- !u!64 &1765241021
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -35075,6 +35107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1488115353}
   imagemUI: {fileID: 684179299}
+  maxDistance: 0.5
 --- !u!65 &1876856355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35211,6 +35244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 1295526452}
   imagemUI: {fileID: 581476040}
+  maxDistance: 0.5
 --- !u!65 &1888760410
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35402,6 +35436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textoUI: {fileID: 955887224}
   imagemUI: {fileID: 1776111485}
+  maxDistance: 0.5
 --- !u!65 &1903101888
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -40074,8 +40109,8 @@ Transform:
   m_GameObject: {fileID: 4887532184184595217}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.288, y: -4.7, z: -5.979}
-  m_LocalScale: {x: 18.423164, y: 1.1359289, z: 14.723902}
+  m_LocalPosition: {x: -6.3199, y: -4.7, z: -5.979}
+  m_LocalScale: {x: 18.487646, y: 1.1359289, z: 14.723902}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2190419874204850811}
