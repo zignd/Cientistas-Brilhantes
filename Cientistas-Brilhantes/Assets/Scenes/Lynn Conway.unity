@@ -11268,7 +11268,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PuzzlePieces: {fileID: 2130195716}
   VictoryCanvas: {fileID: 1400227486}
-  victoryAudio: {fileID: 531360187}
+  VictoryAudio: {fileID: 0}
+  Mode: 0
 --- !u!4 &531360186
 Transform:
   m_ObjectHideFlags: 0
@@ -34031,12 +34032,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ba645c0abf6be40b507e8ce6117378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 200
-  sensY: 200
-  orientation: {fileID: 1282696336}
-  joycomsocket: {fileID: 2146978487}
-  gyroSensitivity: 1
-  accelSensitivity: 1
+  PuzzleManager: {fileID: 531360185}
+  SensX: 200
+  SensY: 200
+  Orientation: {fileID: 1282696336}
+  mouseX: 0
+  mouseY: 0
+  XRotation: 0
+  YRotation: 0
+  BridgeClient: {fileID: 2146978487}
+  SamplePeriod: 0.05
+  Beta: 1
+  t: 0.1
+  QuaternionReadOnly: {x: 0, y: 0, z: 0, w: 0}
+  QuarternionToEulerReadOnly: {x: 0, y: 0, z: 0}
+  MadgwickInternalQuaternionReadOnly: []
 --- !u!114 &1816535969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39996,13 +40006,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f333c900c6f454c83d3d2be475c35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PuzzleManager: {fileID: 531360185}
+  joycomsocket: {fileID: 2146978487}
+  ControllerRotationSensitivity: 100
   moveSpeed: 1.8
   groundDrag: 6
   playerHeight: 3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  orientation: {fileID: 1282696336}
+  Orientation: {fileID: 1282696336}
 --- !u!114 &2146978487
 MonoBehaviour:
   m_ObjectHideFlags: 0
