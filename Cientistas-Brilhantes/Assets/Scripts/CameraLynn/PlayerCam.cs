@@ -9,10 +9,10 @@ public class PlayerCam : MonoBehaviour
 {
     public PuzzleManager PuzzleManager;
 
-    public float SensX = 200;
-    public float SensY = 200;
+    public float MouseSensibilityX = 200;
+    public float MouseSensibilityY = 200;
 
-    public Transform Orientation;
+    public Transform PlayerOrientation;
 
     public float mouseX;
     public float mouseY;
@@ -60,8 +60,8 @@ public class PlayerCam : MonoBehaviour
 
     public void UpdateRotationWithMouseData()
     {
-        mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * SensX;
-        mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * SensY;
+        mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * MouseSensibilityX;
+        mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * MouseSensibilityY;
 
         YRotation += mouseX;
 
@@ -69,7 +69,7 @@ public class PlayerCam : MonoBehaviour
         XRotation = Mathf.Clamp(XRotation, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(XRotation, YRotation, 0);
-        Orientation.rotation = Quaternion.Euler(0, YRotation, 0);
+        PlayerOrientation.rotation = Quaternion.Euler(0, YRotation, 0);
     }
 
     public void UpdateRotationWithMPU6050Data(MPU6050Data data)
@@ -95,11 +95,11 @@ public class PlayerCam : MonoBehaviour
         QuaternionReadOnly = madgwickQuaternion;
         QuarternionToEulerReadOnly = madgwickQuaternion.eulerAngles;
 
-        Quaternion orientationQuaternion = Orientation.rotation;
+        Quaternion orientationQuaternion = PlayerOrientation.rotation;
 
         var slerpedResultQuaternion = Quaternion.Slerp(orientationQuaternion, madgwickQuaternion, t);
 
-        Orientation.rotation = Quaternion.Euler(slerpedResultQuaternion.eulerAngles.x, slerpedResultQuaternion.eulerAngles.y, 0);
+        PlayerOrientation.rotation = Quaternion.Euler(slerpedResultQuaternion.eulerAngles.x, slerpedResultQuaternion.eulerAngles.y, 0);
         transform.rotation = Quaternion.Euler(slerpedResultQuaternion.eulerAngles.x, slerpedResultQuaternion.eulerAngles.y, 0);
     }
 }

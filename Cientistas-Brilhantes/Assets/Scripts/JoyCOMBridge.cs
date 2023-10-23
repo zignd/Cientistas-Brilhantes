@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.IO.Ports;
+using System.Linq;
 
 public class JoystickData
 {
@@ -28,6 +29,15 @@ public class Payload
     public bool Button2 { get; set; }
 }
 
+public class ButtonsState
+{
+    public bool Button1 { get; set; }
+    public bool Button2 { get; set; }
+    public bool JoystickSEL { get; set; }
+}
+
+public delegate void JoyCOMEventHandler();
+
 public class JoyCOMBridge : MonoBehaviour
 {
     private const string PORT_NAME = "COM7";
@@ -35,10 +45,28 @@ public class JoyCOMBridge : MonoBehaviour
 
     private static SerialPort serialPort;
 
+    [SerializeField]
+    private static ButtonsState currentButtonsState;
+
+    [SerializeField]
+    private PuzzleManager puzzleManager;
+    
+    [SerializeField]
     public Payload ReceivedPayload;
+
+    public event JoyCOMEventHandler OnButton1Pressed;
+
+    public event JoyCOMEventHandler OnButton2Pressed;
+
+    public event JoyCOMEventHandler OnJoystickSELPressed;
 
     public JoyCOMBridge()
     {
+        if (currentButtonsState == null)
+        {
+            currentButtonsState = new ButtonsState();
+        }
+
         ReceivedPayload = new Payload
         {
             MPU6050 = new MPU6050Data(),
@@ -49,12 +77,34 @@ public class JoyCOMBridge : MonoBehaviour
     void Start()
     {
         OpenSerialPort();
+
+        OnButton1Pressed += JoyCOMBridge_OnButton1Pressed;
+
+        OnButton2Pressed += JoyCOMBridge_OnButton2Pressed;
+
+        OnJoystickSELPressed += JoyCOMBridge_OnJoystickSELPressed;
+    }
+
+    private void JoyCOMBridge_OnButton1Pressed()
+    {
+        Debug.Log("Yo Button 1 Pressed");
+    }
+
+    private void JoyCOMBridge_OnButton2Pressed()
+    {
+        Debug.Log("Yo Button 2 Pressed");
+    }
+
+    private void JoyCOMBridge_OnJoystickSELPressed()
+    {
+        Debug.Log("Yo Joystick SEL Pressed");
     }
 
     void Update()
     {
-        if (serialPort == null)
+        if (serialPort?.IsOpen == false)
         {
+            // Run this line every 3 seconds only
             OpenSerialPort();
         }
 
@@ -91,21 +141,53 @@ public class JoyCOMBridge : MonoBehaviour
             checksum ^= buffer[i];
         }
 
-        if (checksum == buffer[38])
-        {
-            payload.Joystick = joystickData;
-            payload.MPU6050 = mpu6050Data;
-
-            payload.Joystick.X = Normalize(payload.Joystick.X);
-            payload.Joystick.Y = Normalize(payload.Joystick.Y);
-
-            ReceivedPayload = payload;
-
-            // Debug.Log("Received: GyroX: " + ReceivedPayload.MPU6050.GyroX + " GyroY: " + ReceivedPayload.MPU6050.GyroY + " GyroZ: " + ReceivedPayload.MPU6050.GyroZ + " Joystick.X: " + ReceivedPayload.Joystick.X + " Joystick.Y: " + ReceivedPayload.Joystick.Y);
-        }
-        else
+        if (checksum != buffer[38])
         {
             Debug.LogError("Checksum verification failed. Data might be corrupted.");
+            return;
+        }
+
+        payload.Joystick = joystickData;
+        payload.MPU6050 = mpu6050Data;
+
+        payload.Joystick.X = Normalize(payload.Joystick.X);
+        payload.Joystick.Y = Normalize(payload.Joystick.Y);
+
+        ReceivedPayload = payload;
+
+
+        var button1StateChanged = currentButtonsState.Button1 != ReceivedPayload.Button1;
+        var button2StateChanged = currentButtonsState.Button2 != ReceivedPayload.Button2;
+        var joystickSELStateChanged = currentButtonsState.JoystickSEL != ReceivedPayload.Joystick.SEL;
+
+        if (button1StateChanged)
+        {
+            currentButtonsState.Button1 = ReceivedPayload.Button1;
+
+            if (currentButtonsState.Button1 && OnButton1Pressed != null)
+            {
+                OnButton1Pressed();
+            }
+        }
+
+        if (button2StateChanged)
+        {
+            currentButtonsState.Button2 = ReceivedPayload.Button2;
+
+            if (currentButtonsState.Button2 && OnButton2Pressed != null)
+            {
+                OnButton2Pressed();
+            }
+        }
+
+        if (joystickSELStateChanged)
+        {
+            currentButtonsState.JoystickSEL = ReceivedPayload.Joystick.SEL;
+
+            if (currentButtonsState.JoystickSEL && OnJoystickSELPressed != null)
+            {
+                OnJoystickSELPressed();
+            }
         }
     }
 
@@ -126,6 +208,33 @@ public class JoyCOMBridge : MonoBehaviour
 
     private void OpenSerialPort()
     {
+        /* TODO: resolver problema de conexão com a porta serial que trava o jogo quando o controller está desconectado
+         *  
+         * # possibilidade 1
+         * 
+         * tentar colocar um delay entre as tentativas de conexão
+         * 
+         * # possibilidade 2
+         * 
+         * rodar a tentativa de conexão numa thread fora da main thread
+         * 
+         * # possibilidade 2
+         * 
+         * se estiver no modo Controller e tentar conectar for true
+         *   tentar conectar
+         *   se falhar
+         *      setar tentar conectar para false
+         *      informar para tentar conexão manualmente
+         */
+
+        var availablePorts = SerialPort.GetPortNames();
+
+        if (!availablePorts.Contains(PORT_NAME))
+        {
+            Debug.LogError("Port " + PORT_NAME + " is not available");
+            return;
+        }
+
         serialPort = new SerialPort(PORT_NAME, BAUD_RATE);
 
         Debug.Log("Openning serial port...");
@@ -135,10 +244,10 @@ public class JoyCOMBridge : MonoBehaviour
 
     private short Normalize(short value)
     {
-        if (value >= 1800 && value <= 1900)
+        if (value >= 1700 && value <= 2000)
             return 0;
 
-        if (value > 1900)
+        if (value > 2000)
             return -1;
 
         return 1;

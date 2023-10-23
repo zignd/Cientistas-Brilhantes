@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum Mode { MouseAndKeyboard, Controller };
 
@@ -35,6 +36,11 @@ public class PuzzleManager : MonoBehaviour
             // Inverte a visibilidade do VictoryCanvas ao pressionar "E"
             victoryCanvasVisible = !victoryCanvasVisible;
             VictoryCanvas.SetActive(victoryCanvasVisible);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ExecuteEvents.Execute(VictoryCanvas, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))

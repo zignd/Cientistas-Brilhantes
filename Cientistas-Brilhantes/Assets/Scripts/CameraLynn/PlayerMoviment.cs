@@ -7,7 +7,8 @@ public class PlayerMoviment : MonoBehaviour
 {
     public PuzzleManager PuzzleManager;
 
-    public JoyCOMBridge joycomsocket;
+    [SerializeField]
+    private JoyCOMBridge joyCOMBridge;
 
     public float ControllerRotationSensitivity = 100f;
 
@@ -21,10 +22,13 @@ public class PlayerMoviment : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
-    public Transform Orientation;
+    [SerializeField]
+    private Transform PlayerOrientation;
 
-    float horizontalInput;
-    float verticalInput;
+    [SerializeField]
+    private float horizontalInput;
+    [SerializeField]
+    private float verticalInput;
 
     Vector3 moveDirection;
 
@@ -50,8 +54,8 @@ public class PlayerMoviment : MonoBehaviour
         }
         else
         {
-            Orientation.Rotate(Vector3.up * joycomsocket.ReceivedPayload.Joystick.X * Time.deltaTime * ControllerRotationSensitivity);
-            verticalInput = joycomsocket.ReceivedPayload.Joystick.Y;
+            PlayerOrientation.Rotate(Vector3.up * joyCOMBridge.ReceivedPayload.Joystick.X * Time.deltaTime * ControllerRotationSensitivity);
+            verticalInput = joyCOMBridge.ReceivedPayload.Joystick.Y;
         }
 
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -75,7 +79,7 @@ public class PlayerMoviment : MonoBehaviour
 
     private void MovePlayer()
     {
-        moveDirection = Orientation.forward * verticalInput + Orientation.right * horizontalInput;
+        moveDirection = PlayerOrientation.forward * verticalInput + PlayerOrientation.right * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }

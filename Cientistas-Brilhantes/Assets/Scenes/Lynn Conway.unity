@@ -6740,7 +6740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 283031929}
   m_Layer: 0
-  m_Name: CameraPos
+  m_Name: CameraPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11269,7 +11269,7 @@ MonoBehaviour:
   PuzzlePieces: {fileID: 2130195716}
   VictoryCanvas: {fileID: 1400227486}
   VictoryAudio: {fileID: 0}
-  Mode: 0
+  Mode: 1
 --- !u!4 &531360186
 Transform:
   m_ObjectHideFlags: 0
@@ -12535,7 +12535,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -24874,7 +24874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1282696336}
   m_Layer: 0
-  m_Name: Orientacao
+  m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27739,7 +27739,7 @@ GameObject:
   - component: {fileID: 1483132628}
   - component: {fileID: 1483132627}
   m_Layer: 0
-  m_Name: Personagem
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33632,39 +33632,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 183989dabd8cb83439ec21525426d5b2, type: 3}
   m_PrefabInstance: {fileID: 1783755636}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1791130923
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1791130924}
-  m_Layer: 0
-  m_Name: Personagem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1791130924
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1791130923}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.947, y: 1.829, z: -11.506}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2146978484}
-  - {fileID: 2073701032}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1793851371
 GameObject:
   m_ObjectHideFlags: 0
@@ -33940,7 +33907,7 @@ GameObject:
   - component: {fileID: 1816535968}
   - component: {fileID: 1816535969}
   m_Layer: 0
-  m_Name: PlayerCam
+  m_Name: PlayerCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34033,9 +34000,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PuzzleManager: {fileID: 531360185}
-  SensX: 200
-  SensY: 200
-  Orientation: {fileID: 1282696336}
+  MouseSensibilityX: 200
+  MouseSensibilityY: 200
+  PlayerOrientation: {fileID: 1282696336}
   mouseX: 0
   mouseY: 0
   XRotation: 0
@@ -37966,7 +37933,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2073701032}
   - component: {fileID: 2073701031}
-  - component: {fileID: 2073701033}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -37996,25 +37962,13 @@ Transform:
   m_GameObject: {fileID: 2073701030}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1970005, y: 0.21000004, z: -1.0280021}
+  m_LocalPosition: {x: -0.1970005, y: 0.21000004, z: -1.0280018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1816535967}
-  m_Father: {fileID: 1791130924}
+  m_Father: {fileID: 2146978484}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2073701033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073701030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2974149c6fb01b409a280581634da96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2077476183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38373,7 +38327,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082009059}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -39958,14 +39912,15 @@ Transform:
   m_GameObject: {fileID: 2146978483}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -25.947, y: 1.829, z: -11.506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1282696336}
   - {fileID: 283031929}
   - {fileID: 1483132630}
-  m_Father: {fileID: 1791130924}
+  - {fileID: 2073701032}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2146978485
 Rigidbody:
@@ -40007,7 +39962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PuzzleManager: {fileID: 531360185}
-  joycomsocket: {fileID: 2146978487}
+  joyCOMBridge: {fileID: 2146978487}
   ControllerRotationSensitivity: 100
   moveSpeed: 1.8
   groundDrag: 6
@@ -40015,7 +39970,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  Orientation: {fileID: 1282696336}
+  PlayerOrientation: {fileID: 1282696336}
+  horizontalInput: 0
+  verticalInput: 0
 --- !u!114 &2146978487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40028,6 +39985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ad84a107bf10747b2cd78561946f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzleManager: {fileID: 531360185}
 --- !u!33 &8746537136788136
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -40564,6 +40522,8 @@ BoxCollider:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 531360186}
+  - {fileID: 2146978484}
   - {fileID: 1305736190}
   - {fileID: 1400227490}
   - {fileID: 1193603257}
@@ -40583,7 +40543,6 @@ SceneRoots:
   - {fileID: 36379632}
   - {fileID: 1069333977}
   - {fileID: 2071227712}
-  - {fileID: 531360186}
   - {fileID: 2778468598566266163}
   - {fileID: 2130195717}
   - {fileID: 1026980474}
@@ -40609,7 +40568,6 @@ SceneRoots:
   - {fileID: 31836953}
   - {fileID: 2047511452}
   - {fileID: 754648874}
-  - {fileID: 1791130924}
   - {fileID: 2105530545}
   - {fileID: 1330952193}
   - {fileID: 464083799}

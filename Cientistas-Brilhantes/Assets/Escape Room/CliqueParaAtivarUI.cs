@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CliqueParaAtivarUI : MonoBehaviour
+public class CliqueParaAtivarUI : MonoBehaviour, IInteractable
 {
     public GameObject textoUI;
     public GameObject imagemUI;
@@ -32,20 +29,30 @@ public class CliqueParaAtivarUI : MonoBehaviour
         uiAtivada = false;
     }
 
-    private void OnMouseDown()
+    private void AtivarUI()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, Camera.main.transform.position);
 
         if (!uiAtivada && distanceToPlayer <= maxDistance)
         {
-            AtivarUI();
+            textoUI.SetActive(true);
+            imagemUI.SetActive(true);
+            uiAtivada = true;
         }
     }
 
-    private void AtivarUI()
+    private void OnMouseDown()
     {
-        textoUI.SetActive(true);
-        imagemUI.SetActive(true);
-        uiAtivada = true;
+        AtivarUI();
+    }
+
+    public void TriggerInteraction1()
+    {
+        AtivarUI();
+    }
+
+    public void TriggerInteraction2()
+    {
+        DesativarUI();
     }
 }
