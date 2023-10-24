@@ -24,7 +24,7 @@ public class PlayerMoviment : MonoBehaviour
     private Vector3 moveDirection;
 
     private bool uiAtivada = false;
-    private CharacterController playerController;
+    //private CharacterController playerController;
 
     private Rigidbody rb;
 
@@ -34,7 +34,7 @@ public class PlayerMoviment : MonoBehaviour
         rb.freezeRotation = true;
 
         // Obtém a referência ao CharacterController do jogador
-        playerController = GetComponent<CharacterController>();
+       // playerController = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -71,7 +71,7 @@ public class PlayerMoviment : MonoBehaviour
                 rb.drag = 0;
 
             // Ativar ou desativar o controle do jogador com base na UI ativada
-            playerController.enabled = true;
+            // playerController.enabled = true;
         }
         else
         {
@@ -80,7 +80,7 @@ public class PlayerMoviment : MonoBehaviour
             verticalInput = 0;
 
             // Ativar ou desativar o controle do jogador com base na UI ativada
-            playerController.enabled = false;
+           // playerController.enabled = false;
         }
     }
 

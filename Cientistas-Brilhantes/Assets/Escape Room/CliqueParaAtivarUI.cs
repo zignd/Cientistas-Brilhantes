@@ -9,7 +9,7 @@ public class CliqueParaAtivarUI:MonoBehaviour
     public float maxDistance = 2f; // Defina a distância máxima para a interação.
 
     private bool uiAtivada = false;
-    private CharacterController playerController; // Referência ao controlador do jogador
+    //private CharacterController playerController; // Referência ao controlador do jogador
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class CliqueParaAtivarUI:MonoBehaviour
         imagemUI.SetActive(false);
 
         // Obtém a referência ao controlador do jogador
-        playerController = GetComponent<CharacterController>();
+        // playerController = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -34,7 +34,7 @@ public class CliqueParaAtivarUI:MonoBehaviour
         imagemUI.SetActive(false);
         uiAtivada = false;
         // Ative o controle do jogador novamente
-        playerController.enabled = true;
+        //playerController.enabled = true;
     }
 
     private void OnMouseDown()
@@ -53,6 +53,6 @@ public class CliqueParaAtivarUI:MonoBehaviour
         imagemUI.SetActive(true);
         uiAtivada = true;
         // Desative o controle do jogador quando a UI está ativa
-        playerController.enabled = false;
+        //playerController.enabled = false;
     }
 }
