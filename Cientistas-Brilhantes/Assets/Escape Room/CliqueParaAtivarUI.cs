@@ -4,14 +4,18 @@ public class CliqueParaAtivarUI : MonoBehaviour, IInteractable
 {
     public GameObject textoUI;
     public GameObject imagemUI;
-    public float maxDistance = 2f; // Defina a distância máxima para a interação.
+    public float maxDistance = 2f; // Defina a distï¿½ncia mï¿½xima para a interaï¿½ï¿½o.
 
     private bool uiAtivada = false;
+    private CharacterController playerController; // Referï¿½ncia ao controlador do jogador
 
     private void Start()
     {
         textoUI.SetActive(false);
         imagemUI.SetActive(false);
+
+        // Obtï¿½m a referï¿½ncia ao controlador do jogador
+        playerController = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -27,6 +31,8 @@ public class CliqueParaAtivarUI : MonoBehaviour, IInteractable
         textoUI.SetActive(false);
         imagemUI.SetActive(false);
         uiAtivada = false;
+        // Ative o controle do jogador novamente
+        playerController.enabled = true;
     }
 
     private void AtivarUI()

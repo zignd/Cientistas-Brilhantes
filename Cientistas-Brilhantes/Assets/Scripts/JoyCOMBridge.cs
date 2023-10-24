@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.IO.Ports;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class JoystickData
 {
@@ -44,6 +45,7 @@ public class JoyCOMBridge : MonoBehaviour
     private const int BAUD_RATE = 115200;
 
     private static SerialPort serialPort;
+    private static Task openSerialPortTask;
 
     [SerializeField]
     private static ButtonsState currentButtonsState;
@@ -72,12 +74,15 @@ public class JoyCOMBridge : MonoBehaviour
             MPU6050 = new MPU6050Data(),
             Joystick = new JoystickData()
         };
+
+        if (serialPort == null)
+        {
+            serialPort = new SerialPort(PORT_NAME, BAUD_RATE);
+        }
     }
 
     void Start()
     {
-        OpenSerialPort();
-
         OnButton1Pressed += JoyCOMBridge_OnButton1Pressed;
 
         OnButton2Pressed += JoyCOMBridge_OnButton2Pressed;
@@ -102,108 +107,27 @@ public class JoyCOMBridge : MonoBehaviour
 
     void Update()
     {
-        if (serialPort?.IsOpen == false)
+        if (puzzleManager.Mode == Mode.MouseAndKeyboard)
         {
-            // Run this line every 3 seconds only
-            OpenSerialPort();
-        }
-
-        byte[] buffer = new byte[39];  // Buffer size to match the data being sent
-        JoystickData joystickData = new JoystickData();
-        MPU6050Data mpu6050Data = new MPU6050Data();
-        Payload payload = new Payload();
-
-        // Read data from the serial port
-        serialPort.Read(buffer, 0, buffer.Length);
-
-        // Unpack joystick data
-        joystickData.X = BitConverter.ToInt16(buffer, 0);
-        joystickData.Y = BitConverter.ToInt16(buffer, 2);
-        joystickData.SEL = BitConverter.ToInt16(buffer, 4) == 0;
-
-        // Unpack MPU6050 data
-        mpu6050Data.AccelX = BitConverter.ToSingle(buffer, 6);
-        mpu6050Data.AccelY = BitConverter.ToSingle(buffer, 10);
-        mpu6050Data.AccelZ = BitConverter.ToSingle(buffer, 14);
-        mpu6050Data.GyroX = BitConverter.ToSingle(buffer, 18);
-        mpu6050Data.GyroY = BitConverter.ToSingle(buffer, 22);
-        mpu6050Data.GyroZ = BitConverter.ToSingle(buffer, 26);
-        mpu6050Data.Temp = BitConverter.ToSingle(buffer, 30);
-
-        // Unpack the buttons data
-        payload.Button1 = BitConverter.ToInt16(buffer, 34) == 0;
-        payload.Button2 = BitConverter.ToInt16(buffer, 36) == 0;
-
-        // Verify checksum
-        byte checksum = 0;
-        for (int i = 0; i < 38; i++)
-        {
-            checksum ^= buffer[i];
-        }
-
-        if (checksum != buffer[38])
-        {
-            Debug.LogError("Checksum verification failed. Data might be corrupted.");
             return;
         }
 
-        payload.Joystick = joystickData;
-        payload.MPU6050 = mpu6050Data;
-
-        payload.Joystick.X = Normalize(payload.Joystick.X);
-        payload.Joystick.Y = Normalize(payload.Joystick.Y);
-
-        ReceivedPayload = payload;
-
-
-        var button1StateChanged = currentButtonsState.Button1 != ReceivedPayload.Button1;
-        var button2StateChanged = currentButtonsState.Button2 != ReceivedPayload.Button2;
-        var joystickSELStateChanged = currentButtonsState.JoystickSEL != ReceivedPayload.Joystick.SEL;
-
-        if (button1StateChanged)
+        if (!serialPort.IsOpen)
         {
-            currentButtonsState.Button1 = ReceivedPayload.Button1;
-
-            if (currentButtonsState.Button1 && OnButton1Pressed != null)
+            if (openSerialPortTask == null || openSerialPortTask.IsCompleted)
             {
-                OnButton1Pressed();
+                openSerialPortTask = new Task(() => OpenSerialPort());
+                openSerialPortTask.Start();
             }
+            return;
         }
 
-        if (button2StateChanged)
-        {
-            currentButtonsState.Button2 = ReceivedPayload.Button2;
-
-            if (currentButtonsState.Button2 && OnButton2Pressed != null)
-            {
-                OnButton2Pressed();
-            }
-        }
-
-        if (joystickSELStateChanged)
-        {
-            currentButtonsState.JoystickSEL = ReceivedPayload.Joystick.SEL;
-
-            if (currentButtonsState.JoystickSEL && OnJoystickSELPressed != null)
-            {
-                OnJoystickSELPressed();
-            }
-        }
+        ReadPayload();
     }
 
     void OnDestroy()
     {
-        Debug.Log("Checking if serial port is open...");
-        if (serialPort.IsOpen)
-        {
-            Debug.Log("Closing serial port...");
-            serialPort.Close();
-            Debug.Log("Serial port closed");
-        }
-        else
-        {
-            Debug.Log("Serial port is not open");
-        }
+        CloseSerialPort();
     }
 
     private void OpenSerialPort()
@@ -227,19 +151,30 @@ public class JoyCOMBridge : MonoBehaviour
          *      informar para tentar conexão manualmente
          */
 
-        var availablePorts = SerialPort.GetPortNames();
-
-        if (!availablePorts.Contains(PORT_NAME))
+        try
         {
-            Debug.LogError("Port " + PORT_NAME + " is not available");
-            return;
+            var availablePorts = SerialPort.GetPortNames();
+
+            if (!availablePorts.Contains(PORT_NAME))
+            {
+                Debug.LogError("Port " + PORT_NAME + " is not available");
+                return;
+            }
+
+            if (serialPort.IsOpen)
+            {
+                Debug.Log("Serial port is already open");
+                return;
+            }
+
+            Debug.Log("Openning serial port...");
+            serialPort.Open();
+            Debug.Log("Serial port opened");
         }
-
-        serialPort = new SerialPort(PORT_NAME, BAUD_RATE);
-
-        Debug.Log("Openning serial port...");
-        serialPort.Open();
-        Debug.Log("Serial port opened");
+        catch (Exception e)
+        {
+            Debug.LogError("Error while trying to open serial port: " + e.Message);
+        }
     }
 
     private short Normalize(short value)
@@ -251,5 +186,112 @@ public class JoyCOMBridge : MonoBehaviour
             return -1;
 
         return 1;
+    }
+
+    private void ReadPayload()
+    {
+        try
+        {
+            byte[] buffer = new byte[39];  // Buffer size to match the data being sent
+            JoystickData joystickData = new JoystickData();
+            MPU6050Data mpu6050Data = new MPU6050Data();
+            Payload payload = new Payload();
+
+            // Read data from the serial port
+            serialPort.Read(buffer, 0, buffer.Length);
+
+            // Unpack joystick data
+            joystickData.X = BitConverter.ToInt16(buffer, 0);
+            joystickData.Y = BitConverter.ToInt16(buffer, 2);
+            joystickData.SEL = BitConverter.ToInt16(buffer, 4) == 0;
+
+            // Unpack MPU6050 data
+            mpu6050Data.AccelX = BitConverter.ToSingle(buffer, 6);
+            mpu6050Data.AccelY = BitConverter.ToSingle(buffer, 10);
+            mpu6050Data.AccelZ = BitConverter.ToSingle(buffer, 14);
+            mpu6050Data.GyroX = BitConverter.ToSingle(buffer, 18);
+            mpu6050Data.GyroY = BitConverter.ToSingle(buffer, 22);
+            mpu6050Data.GyroZ = BitConverter.ToSingle(buffer, 26);
+            mpu6050Data.Temp = BitConverter.ToSingle(buffer, 30);
+
+            // Unpack the buttons data
+            payload.Button1 = BitConverter.ToInt16(buffer, 34) == 0;
+            payload.Button2 = BitConverter.ToInt16(buffer, 36) == 0;
+
+            // Verify checksum
+            byte checksum = 0;
+            for (int i = 0; i < 38; i++)
+            {
+                checksum ^= buffer[i];
+            }
+
+            if (checksum != buffer[38])
+            {
+                Debug.LogError("Checksum verification failed. Data might be corrupted.");
+                return;
+            }
+
+            payload.Joystick = joystickData;
+            payload.MPU6050 = mpu6050Data;
+
+            payload.Joystick.X = Normalize(payload.Joystick.X);
+            payload.Joystick.Y = Normalize(payload.Joystick.Y);
+
+            ReceivedPayload = payload;
+
+
+            var button1StateChanged = currentButtonsState.Button1 != ReceivedPayload.Button1;
+            var button2StateChanged = currentButtonsState.Button2 != ReceivedPayload.Button2;
+            var joystickSELStateChanged = currentButtonsState.JoystickSEL != ReceivedPayload.Joystick.SEL;
+
+            if (button1StateChanged)
+            {
+                currentButtonsState.Button1 = ReceivedPayload.Button1;
+
+                if (currentButtonsState.Button1 && OnButton1Pressed != null)
+                {
+                    OnButton1Pressed();
+                }
+            }
+
+            if (button2StateChanged)
+            {
+                currentButtonsState.Button2 = ReceivedPayload.Button2;
+
+                if (currentButtonsState.Button2 && OnButton2Pressed != null)
+                {
+                    OnButton2Pressed();
+                }
+            }
+
+            if (joystickSELStateChanged)
+            {
+                currentButtonsState.JoystickSEL = ReceivedPayload.Joystick.SEL;
+
+                if (currentButtonsState.JoystickSEL && OnJoystickSELPressed != null)
+                {
+                    OnJoystickSELPressed();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error while trying to read payload: " + e.Message);
+        }
+    }
+
+    private void CloseSerialPort()
+    {
+        Debug.Log("Checking if serial port is open...");
+        if (serialPort.IsOpen)
+        {
+            Debug.Log("Closing serial port...");
+            serialPort.Close();
+            Debug.Log("Serial port closed");
+        }
+        else
+        {
+            Debug.Log("Serial port is not open");
+        }
     }
 }
