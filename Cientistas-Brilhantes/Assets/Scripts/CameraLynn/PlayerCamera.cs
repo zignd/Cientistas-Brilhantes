@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-public class PlayerCam : MonoBehaviour
+public class PlayerCamera : MonoBehaviour
 {
     public PuzzleManager PuzzleManager;
 
