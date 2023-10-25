@@ -14296,7 +14296,7 @@ MonoBehaviour:
   openTrigger: 1
   openAnimationName: Abrir Porta Movel
   closeAnimationName: Fechar Porta Movel
-  maxDistance: 0.7
+  maxDistance: 1
 --- !u!64 &661005051
 MeshCollider:
   m_ObjectHideFlags: 0
