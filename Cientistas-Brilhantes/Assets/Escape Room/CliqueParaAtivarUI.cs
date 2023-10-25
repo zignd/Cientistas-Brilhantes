@@ -31,19 +31,19 @@ public class CliqueParaAtivarUI : MonoBehaviour, IInteractable
 
     private void AtivarUI()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, Camera.main.transform.position);
-
-        if (!uiAtivada && distanceToPlayer <= maxDistance)
-        {
-            textoUI.SetActive(true);
-            imagemUI.SetActive(true);
-            uiAtivada = true;
-        }
+        textoUI.SetActive(true);
+        imagemUI.SetActive(true);
+        uiAtivada = true;
     }
 
     private void OnMouseDown()
     {
-        AtivarUI();
+        float distanceToPlayer = Vector3.Distance(transform.position, Camera.main.transform.position);
+
+        if (!uiAtivada && distanceToPlayer <= maxDistance)
+        {
+            AtivarUI();
+        }
     }
 
     public void TriggerInteraction1()
@@ -54,5 +54,10 @@ public class CliqueParaAtivarUI : MonoBehaviour, IInteractable
     public void TriggerInteraction2()
     {
         DesativarUI();
+    }
+
+    public void TriggerInteraction3()
+    {
+        // Do nothing
     }
 }

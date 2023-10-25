@@ -1,4 +1,5 @@
 using AHRS;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -36,6 +37,58 @@ public class PlayerCamera : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        BridgeClient.OnButton1Pressed += BridgeClient_OnButton1Pressed;
+        BridgeClient.OnButton2Pressed += BridgeClient_OnButton2Pressed;
+        BridgeClient.OnJoystickSELPressed += BridgeClient_OnJoystickSELPressed;
+    }
+
+    private void BridgeClient_OnButton1Pressed()
+    {
+        // Make raycast to see if there is an interactable object in front of the player
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+        {
+            // If there is, check if it implements the IInteractable interface
+            IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                // If it does, call the TriggerInteraction1 method
+                interactable.TriggerInteraction1();
+            }
+        }
+    }
+
+    private void BridgeClient_OnButton2Pressed()
+    {
+        // Make raycast to see if there is an interactable object in front of the player
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+        {
+            // If there is, check if it implements the IInteractable interface
+            IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                // If it does, call the TriggerInteraction2 method
+                interactable.TriggerInteraction2();
+            }
+        }
+    }
+
+    private void BridgeClient_OnJoystickSELPressed()
+    {
+        // Make raycast to see if there is an interactable object in front of the player
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+        {
+            // If there is, check if it implements the IInteractable interface
+            IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                // If it does, call the TriggerInteraction3 method
+                interactable.TriggerInteraction3();
+            }
+        }
     }
 
     private void Update()

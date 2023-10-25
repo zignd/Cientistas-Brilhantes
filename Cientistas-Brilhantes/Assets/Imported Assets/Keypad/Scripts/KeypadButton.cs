@@ -1,9 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 namespace NavKeypad
 {
-    public class KeypadButton : MonoBehaviour
+    public class KeypadButton : MonoBehaviour, IInteractable
     {
         [Header("Value")]
         [SerializeField] private string value;
@@ -13,7 +13,7 @@ namespace NavKeypad
         [SerializeField] private float buttonPressedTime = 0.1f;
         [Header("Component References")]
         [SerializeField] private Keypad keypad;
-
+        private bool moving;
 
         public void PressButton()
         {
@@ -23,11 +23,9 @@ namespace NavKeypad
                 StartCoroutine(MoveSmooth());
             }
         }
-        private bool moving;
 
         private IEnumerator MoveSmooth()
         {
-
             moving = true;
             Vector3 startPos = transform.localPosition;
             Vector3 endPos = transform.localPosition + new Vector3(0, 0, moveDist);
@@ -60,6 +58,21 @@ namespace NavKeypad
             transform.localPosition = endPos;
 
             moving = false;
+        }
+
+        public void TriggerInteraction1()
+        {
+            PressButton();
+        }
+
+        public void TriggerInteraction2()
+        {
+            // Do nothing
+        }
+
+        public void TriggerInteraction3()
+        {
+            // Do nothing
         }
     }
 }
