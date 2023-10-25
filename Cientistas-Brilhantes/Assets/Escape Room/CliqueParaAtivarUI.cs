@@ -7,15 +7,11 @@ public class CliqueParaAtivarUI : MonoBehaviour, IInteractable
     public float maxDistance = 2f; // Defina a dist�ncia m�xima para a intera��o.
 
     private bool uiAtivada = false;
-    private CharacterController playerController; // Refer�ncia ao controlador do jogador
 
     private void Start()
     {
         textoUI.SetActive(false);
         imagemUI.SetActive(false);
-
-        // Obt�m a refer�ncia ao controlador do jogador
-        playerController = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -31,8 +27,6 @@ public class CliqueParaAtivarUI : MonoBehaviour, IInteractable
         textoUI.SetActive(false);
         imagemUI.SetActive(false);
         uiAtivada = false;
-        // Ative o controle do jogador novamente
-        playerController.enabled = true;
     }
 
     private void AtivarUI()

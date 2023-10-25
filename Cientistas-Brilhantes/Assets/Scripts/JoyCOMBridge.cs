@@ -132,15 +132,15 @@ public class JoyCOMBridge : MonoBehaviour
 
     private void OpenSerialPort()
     {
-        /* TODO: resolver problema de conexão com a porta serial que trava o jogo quando o controller está desconectado
+        /* TODO: resolver problema de conexï¿½o com a porta serial que trava o jogo quando o controller estï¿½ desconectado
          *  
          * # possibilidade 1
          * 
-         * tentar colocar um delay entre as tentativas de conexão
+         * tentar colocar um delay entre as tentativas de conexï¿½o
          * 
          * # possibilidade 2
          * 
-         * rodar a tentativa de conexão numa thread fora da main thread
+         * rodar a tentativa de conexï¿½o numa thread fora da main thread
          * 
          * # possibilidade 2
          * 
@@ -148,7 +148,7 @@ public class JoyCOMBridge : MonoBehaviour
          *   tentar conectar
          *   se falhar
          *      setar tentar conectar para false
-         *      informar para tentar conexão manualmente
+         *      informar para tentar conexï¿½o manualmente
          */
 
         try
