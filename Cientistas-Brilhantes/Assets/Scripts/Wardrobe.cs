@@ -1,11 +1,16 @@
 using UnityEngine;
 
-public class Wardrobe : MonoBehaviour
+public class Wardrobe : MonoBehaviour, IInteractable
 {
     public GameObject PuzzlePiece;
     private bool isInteracted = false;
 
-    private void OnMouseDown()
+    void Update()
+    {
+
+    }
+
+    private void CollectPuzzlePiece()
     {
         if (!isInteracted)
         {
@@ -23,8 +28,23 @@ public class Wardrobe : MonoBehaviour
         }
     }
 
-    void Update()
+    private void OnMouseDown()
     {
+        CollectPuzzlePiece();
+    }
 
+    public void TriggerInteraction1()
+    {
+        CollectPuzzlePiece();
+    }
+
+    public void TriggerInteraction2()
+    {
+        // Do nothing
+    }
+
+    public void TriggerInteraction3()
+    {
+        // Do nothing
     }
 }

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Animacao : MonoBehaviour
+public class Animacao : MonoBehaviour, IInteractable
 {
     [SerializeField] private Animator objeto = null;
     [SerializeField] private bool openTrigger = false;
@@ -14,19 +12,7 @@ public class Animacao : MonoBehaviour
 
     private bool isInteracted = false;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (openTrigger)
-            {
-                objeto.Play(openAnimationName, 0, 0.0f);
-                //gameObject.SetActive(false);
-            }
-        }
-    }
-
-    private void OnMouseDown()
+    private void ToggleAnimation()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, Camera.main.transform.position);
 
@@ -34,19 +20,33 @@ public class Animacao : MonoBehaviour
         {
             objeto.Play(openAnimationName, 0, 0.0f);
 
-            var puzzleManager = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>();
-            // puzzleManager.ValidatePuzzle();
-
             isInteracted = true;
         }
         else if (isInteracted)
         {
             objeto.Play(closeAnimationName, 0, 0.0f);
 
-            var puzzleManager = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>();
-            // puzzleManager.ValidatePuzzle();
-
             isInteracted = false;
         }
+    }
+
+    private void OnMouseDown()
+    {
+        ToggleAnimation();
+    }
+
+    public void TriggerInteraction1()
+    {
+        ToggleAnimation();
+    }
+
+    public void TriggerInteraction2()
+    {
+        // Do nothing
+    }
+
+    public void TriggerInteraction3()
+    {
+        // Do nothing
     }
 }

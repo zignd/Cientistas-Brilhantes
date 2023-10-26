@@ -163,10 +163,10 @@ public class JoyCOMBridge : MonoBehaviour
 
     private short Normalize(short value)
     {
-        if (value >= 1700 && value <= 2000)
+        if (value >= 1200 && value <= 2900)
             return 0;
 
-        if (value > 2000)
+        if (value > 2900)
             return -1;
 
         return 1;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimacaoPorta : MonoBehaviour
+public class AnimacaoPorta : MonoBehaviour, IInteractable
 {
     [SerializeField] private Animator myDoor = null;
 
@@ -16,24 +16,7 @@ public class AnimacaoPorta : MonoBehaviour
 
     private bool isInteracted = false;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (openTrigger)
-            {
-                myDoor.Play(openAnimationName, 0, 0.0f);
-                gameObject.SetActive(false);
-            }
-            else if (closeTrigger)
-            {
-                myDoor.Play(closeAnimationName, 0, 0.0f);
-                gameObject.SetActive(false);
-            }
-        }
-    }
-
-    private void OnMouseDown()
+    private void CollectKey()
     {
         if (!isInteracted)
         {
@@ -41,10 +24,27 @@ public class AnimacaoPorta : MonoBehaviour
             myDoor.Play(openAnimationName, 0, 0.0f);
             Aparecer.SetActive(true);
 
-            var puzzleManager = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>();
-            // puzzleManager.ValidatePuzzle();
-
             isInteracted = true;
         }
+    }
+
+    private void OnMouseDown()
+    {
+        CollectKey();
+    }
+
+    public void TriggerInteraction1()
+    {
+        CollectKey();
+    }
+
+    public void TriggerInteraction2()
+    {
+        // Do nothing
+    }
+
+    public void TriggerInteraction3()
+    {
+        // Do nothing
     }
 }

@@ -145,7 +145,7 @@ public class PlayerCamera : MonoBehaviour
 
     public void UpdateRotationWithMPU6050Data(MPU6050Data data)
     {
-        if (JoyCOMBridge.ReceivedPayload.Button1)
+        if (JoyCOMBridge.ReceivedPayload.Button2)
         {
             return;
         }
