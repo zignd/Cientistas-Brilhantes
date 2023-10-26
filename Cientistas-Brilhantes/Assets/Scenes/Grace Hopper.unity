@@ -19474,7 +19474,7 @@ PrefabInstance:
       objectReference: {fileID: 2125494416}
     - target: {fileID: 7265065682441345911, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.01
+      value: 50.59
       objectReference: {fileID: 0}
     - target: {fileID: 7265065682441345911, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -19482,7 +19482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7265065682441345911, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -46.39
+      value: -50.136
       objectReference: {fileID: 0}
     - target: {fileID: 7265065682441345911, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26874,7 +26874,8 @@ MonoBehaviour:
   PuzzlePieces: {fileID: 1714916437}
   VictoryCanvas: {fileID: 1177563905}
   VictoryAudio: {fileID: 2125494417}
-  Mode: 0
+  Mode: 1
+  nextScene: Museu
 --- !u!82 &2125494417
 AudioSource:
   m_ObjectHideFlags: 0

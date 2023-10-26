@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public enum Mode { MouseAndKeyboard, Controller };
 
@@ -9,10 +10,13 @@ public class PuzzleManager : MonoBehaviour
 {
     public GameObject PuzzlePieces;
     public GameObject VictoryCanvas;
-    public AudioSource VictoryAudio; // Referência ao AudioSource
+    public AudioSource VictoryAudio; // Referï¿½ncia ao AudioSource
     public Mode Mode;
 
-    private bool victoryCanvasVisible = false; // Adicionamos uma variável para rastrear a visibilidade do VictoryCanvas
+    [SerializeField]
+    private string nextScene;
+
+    private bool victoryCanvasVisible = false; // Adicionamos uma variï¿½vel para rastrear a visibilidade do VictoryCanvas
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,11 @@ public class PuzzleManager : MonoBehaviour
         {
             // Inverte a visibilidade do VictoryCanvas ao pressionar "E"
             victoryCanvasVisible = !victoryCanvasVisible;
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            TriggerVictory();
         }
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -71,13 +80,26 @@ public class PuzzleManager : MonoBehaviour
 
         if (allPiecesActive)
         {
-            victoryCanvasVisible = true; // Define a visibilidade do VictoryCanvas como verdadeira
-            VictoryCanvas.SetActive(true);
-
-            if (VictoryAudio != null)
-            {
-                VictoryAudio.Play(); // Toca o áudio da vitória
-            }
+            TriggerVictory();
         }
+    }
+
+    private void TriggerVictory()
+    {
+        victoryCanvasVisible = true; // Define a visibilidade do VictoryCanvas como verdadeira
+        VictoryCanvas.SetActive(true);
+
+        if (VictoryAudio != null)
+        {
+            VictoryAudio.Play(); // Toca o ï¿½udio da vitï¿½ria
+        }
+
+        StartCoroutine(LoadSceneAfterDelay(5));
+    }
+
+    private IEnumerator LoadSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(nextScene);
     }
 }
