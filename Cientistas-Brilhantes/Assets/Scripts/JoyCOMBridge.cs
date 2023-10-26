@@ -54,7 +54,7 @@ public class JoyCOMBridge : MonoBehaviour
     private PuzzleManager puzzleManager;
     
     [SerializeField]
-    public Payload ReceivedPayload;
+    public static Payload ReceivedPayload;
 
     public event JoyCOMEventHandler OnButton1Pressed;
 
@@ -69,11 +69,14 @@ public class JoyCOMBridge : MonoBehaviour
             currentButtonsState = new ButtonsState();
         }
 
-        ReceivedPayload = new Payload
+        if (ReceivedPayload == null)
         {
-            MPU6050 = new MPU6050Data(),
-            Joystick = new JoystickData()
-        };
+            ReceivedPayload = new Payload
+            {
+                MPU6050 = new MPU6050Data(),
+                Joystick = new JoystickData()
+            };
+        }
 
         if (serialPort == null)
         {
@@ -83,26 +86,7 @@ public class JoyCOMBridge : MonoBehaviour
 
     void Start()
     {
-        OnButton1Pressed += JoyCOMBridge_OnButton1Pressed;
 
-        OnButton2Pressed += JoyCOMBridge_OnButton2Pressed;
-
-        OnJoystickSELPressed += JoyCOMBridge_OnJoystickSELPressed;
-    }
-
-    private void JoyCOMBridge_OnButton1Pressed()
-    {
-        Debug.Log("Yo Button 1 Pressed");
-    }
-
-    private void JoyCOMBridge_OnButton2Pressed()
-    {
-        Debug.Log("Yo Button 2 Pressed");
-    }
-
-    private void JoyCOMBridge_OnJoystickSELPressed()
-    {
-        Debug.Log("Yo Joystick SEL Pressed");
     }
 
     void Update()
@@ -238,7 +222,6 @@ public class JoyCOMBridge : MonoBehaviour
             payload.Joystick.Y = Normalize(payload.Joystick.Y);
 
             ReceivedPayload = payload;
-
 
             var button1StateChanged = currentButtonsState.Button1 != ReceivedPayload.Button1;
             var button2StateChanged = currentButtonsState.Button2 != ReceivedPayload.Button2;

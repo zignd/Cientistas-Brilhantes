@@ -37,7 +37,7 @@ public class PlayerCamera : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        
         BridgeClient.OnButton1Pressed += BridgeClient_OnButton1Pressed;
         BridgeClient.OnButton2Pressed += BridgeClient_OnButton2Pressed;
         BridgeClient.OnJoystickSELPressed += BridgeClient_OnJoystickSELPressed;
@@ -49,12 +49,19 @@ public class PlayerCamera : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
         {
+            // Draw a debug line to see where the raycast is hitting
+            Debug.DrawLine(transform.position, hit.point, Color.red, 60f);
+
             // If there is, check if it implements the IInteractable interface
             IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
             if (interactable != null)
             {
                 // If it does, call the TriggerInteraction1 method
                 interactable.TriggerInteraction1();
+            }
+            else
+            {
+                Debug.Log("No interactable object in front of the player" + hit.collider.gameObject);
             }
         }
     }
@@ -65,12 +72,19 @@ public class PlayerCamera : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
         {
+            // Draw a debug line to see where the raycast is hitting
+            Debug.DrawLine(transform.position, hit.point, Color.blue, 60f);
+
             // If there is, check if it implements the IInteractable interface
             IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
             if (interactable != null)
             {
                 // If it does, call the TriggerInteraction2 method
                 interactable.TriggerInteraction2();
+            }
+            else
+            {
+                Debug.Log("No interactable object in front of the player" + hit.collider.gameObject);
             }
         }
     }
@@ -81,12 +95,19 @@ public class PlayerCamera : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
         {
+            // Draw a debug line to see where the raycast is hitting
+            Debug.DrawLine(transform.position, hit.point, Color.green, 60f);
+
             // If there is, check if it implements the IInteractable interface
             IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
             if (interactable != null)
             {
                 // If it does, call the TriggerInteraction3 method
                 interactable.TriggerInteraction3();
+            }
+            else
+            {
+                Debug.Log("No interactable object in front of the player" + hit.collider.gameObject);
             }
         }
     }
@@ -104,10 +125,7 @@ public class PlayerCamera : MonoBehaviour
                 madgwickAHRS = new MadgwickAHRS(SamplePeriod, Beta);
             }
 
-            if (BridgeClient.ReceivedPayload != null)
-            {
-                UpdateRotationWithMPU6050Data(BridgeClient.ReceivedPayload.MPU6050);
-            }
+            UpdateRotationWithMPU6050Data(JoyCOMBridge.ReceivedPayload.MPU6050);
         }
     }
 
@@ -127,7 +145,7 @@ public class PlayerCamera : MonoBehaviour
 
     public void UpdateRotationWithMPU6050Data(MPU6050Data data)
     {
-        if (BridgeClient.ReceivedPayload.Button1)
+        if (JoyCOMBridge.ReceivedPayload.Button1)
         {
             return;
         }

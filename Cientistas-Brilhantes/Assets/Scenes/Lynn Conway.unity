@@ -44078,6 +44078,10 @@ PrefabInstance:
       propertyPath: PuzzleManager
       value: 
       objectReference: {fileID: 531360185}
+    - target: {fileID: 3601927755804101884, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4413856076945502518, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
       propertyPath: m_Name
       value: Player

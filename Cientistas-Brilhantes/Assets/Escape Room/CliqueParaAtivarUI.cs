@@ -16,7 +16,8 @@ public class CliqueParaAtivarUI : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && uiAtivada)
+        if ((Input.GetKeyDown(KeyCode.Escape) || JoyCOMBridge.ReceivedPayload.Button2)
+            && uiAtivada)
         {
             DesativarUI();
         }

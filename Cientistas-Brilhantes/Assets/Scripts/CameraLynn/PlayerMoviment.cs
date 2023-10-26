@@ -29,8 +29,6 @@ public class PlayerMoviment : MonoBehaviour
     private float verticalInput;
     private Vector3 moveDirection;
 
-    private bool uiAtivada = false;
-
     private Rigidbody rb;
 
     void Start()
@@ -43,40 +41,32 @@ public class PlayerMoviment : MonoBehaviour
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
-        if (!uiAtivada)
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
+
+        if (PuzzleManager.Mode == Mode.MouseAndKeyboard)
         {
-            var horizontal = Input.GetAxisRaw("Horizontal");
-            var vertical = Input.GetAxisRaw("Vertical");
-
-            if (PuzzleManager.Mode == Mode.MouseAndKeyboard)
-            {
-                horizontalInput = Input.GetAxisRaw("Horizontal");
-                verticalInput = Input.GetAxisRaw("Vertical");
-            }
-            else
-            {
-                PlayerOrientation.Rotate(Vector3.up * joyCOMBridge.ReceivedPayload.Joystick.X * Time.deltaTime * ControllerRotationSensitivity);
-                verticalInput = joyCOMBridge.ReceivedPayload.Joystick.Y;
-            }
-
-            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-            if (flatVel.magnitude > moveSpeed)
-            {
-                Vector3 limitedVel = flatVel.normalized * moveSpeed;
-                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-            }
-
-            if (grounded)
-                rb.drag = groundDrag;
-            else
-                rb.drag = 0;
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
         }
         else
         {
-            PlayerOrientation.Rotate(Vector3.up * joyCOMBridge.ReceivedPayload.Joystick.X * Time.deltaTime * ControllerRotationSensitivity);
-            verticalInput = joyCOMBridge.ReceivedPayload.Joystick.Y;
+            PlayerOrientation.Rotate(Vector3.up * JoyCOMBridge.ReceivedPayload.Joystick.X * Time.deltaTime * ControllerRotationSensitivity);
+            verticalInput = JoyCOMBridge.ReceivedPayload.Joystick.Y;
         }
+
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+
+        if (grounded)
+            rb.drag = groundDrag;
+        else
+            rb.drag = 0;
     }
 
     private void FixedUpdate()
@@ -89,15 +79,5 @@ public class PlayerMoviment : MonoBehaviour
         moveDirection = PlayerOrientation.forward * verticalInput + PlayerOrientation.right * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-    }
-
-    public void AtivarUI()
-    {
-        uiAtivada = true;
-    }
-
-    public void DesativarUI()
-    {
-        uiAtivada = false;
     }
 }

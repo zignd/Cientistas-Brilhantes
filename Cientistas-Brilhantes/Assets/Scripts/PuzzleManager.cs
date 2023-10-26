@@ -17,14 +17,7 @@ public class PuzzleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PuzzlePieces == null)
-        {
-            Debug.LogError("PuzzlePieces is null");
-        }
-        if (VictoryCanvas == null)
-        {
-            Debug.LogError("VictoryCanvas is null");
-        }
+
     }
 
     // Update is called once per frame
@@ -35,11 +28,16 @@ public class PuzzleManager : MonoBehaviour
         {
             // Inverte a visibilidade do VictoryCanvas ao pressionar "E"
             victoryCanvasVisible = !victoryCanvasVisible;
-            //VictoryCanvas.SetActive(victoryCanvasVisible);
         }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
+            if (VictoryCanvas == null)
+            {
+                Debug.LogError("Can't click VictoryCanvas is null");
+                return;
+            }
+
             ExecuteEvents.Execute(VictoryCanvas, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
         }
 
@@ -56,6 +54,12 @@ public class PuzzleManager : MonoBehaviour
 
     public void ValidatePuzzle()
     {
+        if (PuzzlePieces == null)
+        {
+            Debug.LogError("Can't validate puzzle PuzzlePieces is null");
+            return;
+        }
+
         var allPiecesActive = true;
         foreach (Transform child in PuzzlePieces.gameObject.transform)
         {
