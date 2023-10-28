@@ -26980,7 +26980,7 @@ MonoBehaviour:
   PuzzlePieces: {fileID: 1714916437}
   VictoryCanvas: {fileID: 1177563905}
   VictoryAudio: {fileID: 2125494417}
-  Mode: 1
+  Mode: 0
   nextScene: Museu
 --- !u!82 &2125494417
 AudioSource:

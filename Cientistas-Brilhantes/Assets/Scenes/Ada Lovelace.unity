@@ -844,7 +844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5658006070219765835, guid: 0c96439a55ca8f7469b1dd826d0a4416, type: 3}
       propertyPath: Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5658006070219765835, guid: 0c96439a55ca8f7469b1dd826d0a4416, type: 3}
       propertyPath: nextScene
@@ -1741,7 +1741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 688c7572e7f535a4182d169d021b1e03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4051
+      value: 1.037
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 688c7572e7f535a4182d169d021b1e03, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2016,6 +2016,7 @@ MonoBehaviour:
   VictoryCanvas: {fileID: 0}
   VictoryAudio: {fileID: 0}
   Mode: 0
+  nextScene: 
 --- !u!4 &323533655
 Transform:
   m_ObjectHideFlags: 0
@@ -5741,11 +5742,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 197c9b38093bb144e8bf1af2865cc932, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.43367413
+      value: 0.4455
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 197c9b38093bb144e8bf1af2865cc932, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6382425
+      value: -0.637
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 197c9b38093bb144e8bf1af2865cc932, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7583,7 +7584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 688c7572e7f535a4182d169d021b1e03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4051
+      value: 1.0370002
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 688c7572e7f535a4182d169d021b1e03, type: 3}
       propertyPath: m_LocalPosition.z

@@ -28,11 +28,11 @@ public class PuzzleManager : MonoBehaviour
     void Update()
     {
         // Verifica se a tecla "E" foi pressionada
-        if (victoryCanvasVisible && Input.GetKeyDown(KeyCode.E))
-        {
-            // Inverte a visibilidade do VictoryCanvas ao pressionar "E"
-            victoryCanvasVisible = !victoryCanvasVisible;
-        }
+        //if (victoryCanvasVisible && Input.GetKeyDown(KeyCode.E))
+        //{
+        //    // Inverte a visibilidade do VictoryCanvas ao pressionar "E"
+        //    victoryCanvasVisible = !victoryCanvasVisible;
+        //}
 
         if (Input.GetKeyDown(KeyCode.V))
         {
