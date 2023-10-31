@@ -12518,6 +12518,10 @@ PrefabInstance:
       value: Books_15 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4921635754398162, guid: 7171862ec87b07b47addc4d6c1e3686d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.45563
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921635754398162, guid: 7171862ec87b07b47addc4d6c1e3686d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 57.4195
       objectReference: {fileID: 0}
