@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ShowImageOnCollision : MonoBehaviour
+public class TeleportToScene : MonoBehaviour
 {
     [SerializeField]
-    private GameObject imageToShow; // Referência ao objeto da imagem que você deseja mostrar.
+    private GameObject loadingUIObject; // Referência ao objeto da imagem que você deseja mostrar.
     [SerializeField]
     private string sceneToLoad;    // Nome da cena para carregar (se necessário).
 
@@ -18,9 +18,9 @@ public class ShowImageOnCollision : MonoBehaviour
             Debug.Log("Player collided with " + gameObject.name);
 
             // Verifica se há um objeto de imagem para mostrar.
-            if (imageToShow != null)
+            if (loadingUIObject != null)
             {
-                imageToShow.SetActive(true); // Ativa o objeto da imagem.
+                loadingUIObject.SetActive(true); // Ativa o objeto da imagem.
             }
 
             // Se necessário, carrega a cena especificada.

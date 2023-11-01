@@ -1368,7 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e0241d35f12bf4cb602a70e8442a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageToShow: {fileID: 1212235962}
+  loadingUIObject: {fileID: 1212235962}
   sceneToLoad: Grace Hopper
 --- !u!1 &178502909
 GameObject:
@@ -6610,7 +6610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1212235963}
   m_Layer: 5
-  m_Name: Load
+  m_Name: Loading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7261,7 +7261,7 @@ GameObject:
   - component: {fileID: 1364114649}
   - component: {fileID: 1364114648}
   m_Layer: 5
-  m_Name: Image1
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7726,7 +7726,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -8506,7 +8506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e0241d35f12bf4cb602a70e8442a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageToShow: {fileID: 1212235962}
+  loadingUIObject: {fileID: 1212235962}
   sceneToLoad: Lynn Conway
 --- !u!1001 &1606260139
 PrefabInstance:
@@ -11228,7 +11228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e0241d35f12bf4cb602a70e8442a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageToShow: {fileID: 1212235962}
+  loadingUIObject: {fileID: 1212235962}
   sceneToLoad: Ada Lovelace
 --- !u!1001 &2080464193
 PrefabInstance:
