@@ -19684,6 +19684,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4413856076945502518, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6127834594395465929, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6904414090757796737, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
       propertyPath: puzzleManager
       value: 
