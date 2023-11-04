@@ -25,8 +25,10 @@ public class PlayerMoviment : MonoBehaviour
 
     [SerializeField]
     private float horizontalInput;
+
     [SerializeField]
     private float verticalInput;
+
     private Vector3 moveDirection;
 
     private Rigidbody rb;

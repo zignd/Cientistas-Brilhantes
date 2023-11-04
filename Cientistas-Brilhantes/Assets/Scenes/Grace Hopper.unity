@@ -8313,8 +8313,8 @@ Transform:
   m_GameObject: {fileID: 629603954}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 97.25, y: 131.4231, z: -248.66803}
-  m_LocalScale: {x: 1.8654176, y: 0.278936, z: 1.9401327}
+  m_LocalPosition: {x: 97.2743, y: 131.4231, z: -248.66803}
+  m_LocalScale: {x: 1.8654176, y: 0.278936, z: 1.9888301}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1144080426}
@@ -9685,8 +9685,8 @@ Transform:
   m_GameObject: {fileID: 788070898}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 94.30315, y: 128.88203, z: -248.66801}
-  m_LocalScale: {x: 6.9475517, y: 0.278936, z: 3.9535904}
+  m_LocalPosition: {x: 94.3162, y: 128.88203, z: -248.66801}
+  m_LocalScale: {x: 6.9475517, y: 0.278936, z: 3.979684}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1144080426}
@@ -14770,6 +14770,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 747626301}
   m_LocalEulerAnglesHint: {x: 0, y: -89.633, z: 0}
+--- !u!1 &1195101530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6968756557906114800, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
+  m_PrefabInstance: {fileID: 1571361091}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1195101536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195101530}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 0}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &1200140193
 GameObject:
   m_ObjectHideFlags: 0
@@ -19747,7 +19769,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6968756557906114800, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1195101536}
   m_SourcePrefab: {fileID: 100100000, guid: b69e0d99e55cc6a4cb6dcb744c7ed7d2, type: 3}
 --- !u!1 &1577018053
 GameObject:
