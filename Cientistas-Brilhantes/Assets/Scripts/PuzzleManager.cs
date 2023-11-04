@@ -17,12 +17,12 @@ public class PuzzleManager : MonoBehaviour
     private string nextScene;
 
     [SerializeField]
-    private int debugMode;
+    private MessagesManager messagesManager;
 
     void Start()
     {
         SelectedMode = (Mode)PlayerPrefs.GetInt("SelectedMode");
-        debugMode = PlayerPrefs.GetInt("DebugMode");
+        // messagesManager.Queue.Push()
     }
 
     void Update()
@@ -56,13 +56,13 @@ public class PuzzleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             PlayerPrefs.SetInt("DebugMode", 0);
-            debugMode = 0;
+            Debug.Log("Debug Mode disabled");
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             PlayerPrefs.SetInt("DebugMode", 1);
-            debugMode = 1;
+            Debug.Log("Debug Mode enabled");
         }
 
     }

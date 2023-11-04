@@ -45310,6 +45310,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 50243234679299424, guid: c3cedbea20937f3448f563c81b60c252, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168218661008047289, guid: c3cedbea20937f3448f563c81b60c252, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4620156707696312220, guid: c3cedbea20937f3448f563c81b60c252, type: 3}
       propertyPath: m_Name
       value: MessageCanvas
