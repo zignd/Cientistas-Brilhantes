@@ -40,7 +40,7 @@ public class ShowMessage : MonoBehaviour
     {
         if(isMessageBoxActive)
         {
-            if (puzzleManager.Mode == Mode.MouseAndKeyboard)
+            if (puzzleManager.SelectedMode == Mode.MouseAndKeyboard)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {

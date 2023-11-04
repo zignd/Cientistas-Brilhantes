@@ -114,7 +114,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void Update()
     {
-        if (PuzzleManager.Mode == Mode.MouseAndKeyboard)
+        if (PuzzleManager.SelectedMode == Mode.MouseAndKeyboard)
         {
             UpdateRotationWithMouseData();
         }

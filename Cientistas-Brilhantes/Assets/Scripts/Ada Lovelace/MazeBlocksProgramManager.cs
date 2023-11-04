@@ -16,6 +16,9 @@ public enum Command
 
 public class MazeBlocksProgramManager : MonoBehaviour
 {
+    [SerializeField]
+    private PuzzleManager puzzleManager;
+
     [Header("Program Stack")]
 
     [SerializeField]
@@ -203,6 +206,8 @@ public class MazeBlocksProgramManager : MonoBehaviour
         {
             programSuccess.SetActive(true);
             programError.SetActive(false);
+
+            puzzleManager.TriggerVictory();
         }
         else
         {

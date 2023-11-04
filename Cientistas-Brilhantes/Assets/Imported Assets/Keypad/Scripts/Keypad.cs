@@ -79,7 +79,16 @@ public class Keypad : MonoBehaviour
     {
         if(int.TryParse(currentInput, out var currentKombo))
         {
-            bool granted = currentKombo == keypadCombo;
+            bool granted;
+
+            if (PlayerPrefs.GetInt("DebugMode") == 1)
+            {
+                granted = true;
+            }
+            else
+            {
+                granted = currentKombo == keypadCombo;
+            }
             if (!displayingResult)
             {
                 StartCoroutine(DisplayResultRoutine(granted));

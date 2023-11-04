@@ -46,7 +46,7 @@ public class PlayerMoviment : MonoBehaviour
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
 
-        if (PuzzleManager.Mode == Mode.MouseAndKeyboard)
+        if (PuzzleManager.SelectedMode == Mode.MouseAndKeyboard)
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");

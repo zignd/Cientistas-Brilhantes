@@ -91,7 +91,7 @@ public class JoyCOMBridge : MonoBehaviour
 
     void Update()
     {
-        if (puzzleManager.Mode == Mode.MouseAndKeyboard)
+        if (puzzleManager.SelectedMode == Mode.MouseAndKeyboard)
         {
             return;
         }

@@ -10,31 +10,23 @@ public class PuzzleManager : MonoBehaviour
 {
     public GameObject PuzzlePieces;
     public GameObject VictoryCanvas;
-    public AudioSource VictoryAudio; // Refer�ncia ao AudioSource
-    public Mode Mode;
+    public AudioSource VictoryAudio;
+    public Mode SelectedMode;
 
     [SerializeField]
     private string nextScene;
 
-    private bool victoryCanvasVisible = false; // Adicionamos uma vari�vel para rastrear a visibilidade do VictoryCanvas
+    [SerializeField]
+    private int debugMode;
 
-    // Start is called before the first frame update
     void Start()
     {
-        //PlayerPrefs.GetString("Nome");
-        Debug.Log("PlayerPrefs: " + PlayerPrefs.GetString("Nome"));
+        SelectedMode = (Mode)PlayerPrefs.GetInt("SelectedMode");
+        debugMode = PlayerPrefs.GetInt("DebugMode");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Verifica se a tecla "E" foi pressionada
-        //if (victoryCanvasVisible && Input.GetKeyDown(KeyCode.E))
-        //{
-        //    // Inverte a visibilidade do VictoryCanvas ao pressionar "E"
-        //    victoryCanvasVisible = !victoryCanvasVisible;
-        //}
-
         if (Input.GetKeyDown(KeyCode.V))
         {
             TriggerVictory();
@@ -53,13 +45,26 @@ public class PuzzleManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Mode = Mode.MouseAndKeyboard;
+            SelectedMode = Mode.MouseAndKeyboard;
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Mode = Mode.Controller;
+            SelectedMode = Mode.Controller;
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            PlayerPrefs.SetInt("DebugMode", 0);
+            debugMode = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            PlayerPrefs.SetInt("DebugMode", 1);
+            debugMode = 1;
+        }
+
     }
 
     public void ValidatePuzzle()
@@ -85,14 +90,13 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    private void TriggerVictory()
+    public void TriggerVictory()
     {
-        victoryCanvasVisible = true; // Define a visibilidade do VictoryCanvas como verdadeira
         VictoryCanvas.SetActive(true);
 
         if (VictoryAudio != null)
         {
-            VictoryAudio.Play(); // Toca o �udio da vit�ria
+            VictoryAudio.Play();
         }
 
         StartCoroutine(LoadSceneAfterDelay(5));
