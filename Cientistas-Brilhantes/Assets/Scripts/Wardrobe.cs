@@ -5,11 +5,6 @@ public class Wardrobe : MonoBehaviour, IInteractable
     public GameObject PuzzlePiece;
     private bool isInteracted = false;
 
-    void Update()
-    {
-
-    }
-
     private void CollectPuzzlePiece()
     {
         if (!isInteracted)
@@ -23,7 +18,6 @@ public class Wardrobe : MonoBehaviour, IInteractable
                 var puzzleManager = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>();
                 puzzleManager.ValidatePuzzle();
             }
-
             isInteracted = true;
         }
     }

@@ -4769,7 +4769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingUIObject: {fileID: 53413191}
-  elementoASumir: {fileID: 1531462895}
+  menuScreen: {fileID: 1531462895}
 --- !u!1 &1830442147
 GameObject:
   m_ObjectHideFlags: 0

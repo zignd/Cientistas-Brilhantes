@@ -8,17 +8,32 @@ public class InicioUI : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ActivateUI1AndSwitch());
-    }
-
-    private IEnumerator ActivateUI1AndSwitch()
-    {
+        //StartCoroutine(ActivateUI1());
         UI1.SetActive(true);
-        yield return new WaitForSeconds(10f);
-        UI1.SetActive(false);
-
-        UI2.SetActive(true);
-        yield return new WaitForSeconds(10f);
-        UI2.SetActive(false);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UI1.SetActive(false);
+            UI2.SetActive(true);
+
+        }
+    }
+
+    //private IEnumerator ActivateUI1()
+    //{
+    //    UI1.SetActive(true);
+    //    yield return new WaitForSeconds(10f);
+    //    UI1.SetActive(false);
+    //}
+
+    //private IEnumerator ActivateUI2()
+    //{
+
+    //    UI2.SetActive(true);
+    //    yield return new WaitForSeconds(10f);
+    //    UI2.SetActive(false);
+    //}
 }

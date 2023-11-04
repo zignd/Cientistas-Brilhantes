@@ -6,25 +6,19 @@ public class CarregarCena : MonoBehaviour
 {
     [SerializeField]
     private GameObject loadingUIObject;
+    public GameObject menuScreen;
 
-    public GameObject elementoASumir;
-
-    public void TrocarElementosUI()
-    {
-        elementoASumir.SetActive(false);
-    }
+   
 
     public void MostrarImagemECarregarCena()
     {
+        //PlayerPrefs.SetString("Nome", "Rafael");
+
         if (loadingUIObject != null)
         {
-            TrocarElementosUI();
+            menuScreen.SetActive(false);
             loadingUIObject.SetActive(true); // Torna a imagem de UI visível
         }
-
-        // Carrega a nova cena após um pequeno atraso
-        Invoke("Museu", 1.0f);
-
         CarregarNovaCena();
     }
 
