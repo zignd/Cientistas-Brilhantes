@@ -26,7 +26,7 @@ public class ShowMessage : MonoBehaviour
 
     private bool LoadMessage()
     {
-        if(currentMessage >= messages.Count)
+        if (currentMessage >= messages.Count)
         {
             return false;
         }
@@ -38,7 +38,7 @@ public class ShowMessage : MonoBehaviour
 
     private void Update()
     {
-        if(isMessageBoxActive)
+        if (isMessageBoxActive)
         {
             if (puzzleManager.SelectedMode == Mode.MouseAndKeyboard)
             {
@@ -68,12 +68,12 @@ public class ShowMessage : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    { 
+    {
         if (other.CompareTag("Player"))
         {
             LoadMessage();
             messageBox.SetActive(true);
-            isMessageBoxActive = true;    
+            isMessageBoxActive = true;
         }
     }
 }
