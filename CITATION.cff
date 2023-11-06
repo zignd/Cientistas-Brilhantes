@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using these metadata."
+title: "Mulheres que Inspiram: um jogo que destaca cientistas incríveis na área da computação"
+license: MIT
+authors:
+  - family-names: Przendziuk Franco Felix
+    given-names: Camila
+    email: camila.felix@pucpr.edu.br
+  - family-names: Hipólito Vieira
+    given-names: Igor
+    email: igor.hipolito@pucpr.edu.br
+  - family-names: Vitagliano Tannenbaum Nuñez
+    given-names: Rafael
+    email: rafael.nunez@pucpr.edu.br
+  - family-names: Silla
+    given-names: Carlos
+    email: carlos.silla@pucpr.br
+version: 1.0.0
+date-released: 2023-11-06
+repository-code: "https://github.com/PUCPR-TCC/Cientistas-Brilhantes"
